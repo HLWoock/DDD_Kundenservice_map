@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.4'
+	id 'org.springframework.boot' version '2.7.15'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
 }
@@ -32,10 +32,13 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	
 	implementation 'net.sf.dozer:dozer:5.5.1'
-	
+    implementation 'fr.xebia.extras:selma:1.0'
+    implementation 'org.modelmapper:modelmapper:3.1.1'
+    implementation 'org.modelmapper.extensions:modelmapper-spring:3.1.1'
+    
 	
 	compileOnly 'org.projectlombok:lombok'
-	
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	
 	runtimeOnly 'com.h2database:h2'
