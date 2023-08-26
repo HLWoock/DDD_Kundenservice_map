@@ -20,7 +20,7 @@ public class Anfragen {
 	private       DozerBeanMapper    mapper = new DozerBeanMapper();
 
 	public Anfrage hinzufuegen(Anfrage anfrage) {
-		log.debug("füge Anfrage hinzu: {}", anfrage.getAnfrage());
+		log.debug("fÃ¼ge Anfrage hinzu: {}", anfrage.getAnfrage());
 	    Anfrage_ anfrage_ = mapper.map(anfrage, Anfrage_.class);
 		anfrage_ = anfragenRepository.save(anfrage_);
 		return mapper.map(anfrage_, Anfrage.class);

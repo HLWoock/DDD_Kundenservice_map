@@ -14,22 +14,22 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Component
-public class AnfrageConverter implements Converter<Anfrage_, Anfrage> {
+public class Anfrage_Converter_Dozer implements Converter<Anfrage, Anfrage_> {
 	
 	private DozerBeanMapper mapper = new DozerBeanMapper();
 	private Anfragen        anfragen; 
 	private Ausgang         ausgang;
 	
 	@Override
-	public Anfrage convert(Anfrage_ anfrage_) {
+	public Anfrage_ convert(Anfrage anfrage) {
 		log.debug("converting...");
 		AnfragenOrdner anfragenOrdner = AnfragenOrdner.mit(anfragen);
 		AnfragenBoard anfragenBoard   = AnfragenBoard.mit(ausgang);
 
-		Anfrage anfrage = mapper.map(anfrage_, Anfrage.class);
+		Anfrage_ anfrage_ = mapper.map(anfrage, Anfrage_.class);
 		anfrage.mit(anfragenOrdner,  anfragenBoard);
 		
-		return anfrage;
+		return anfrage_;
 	}
 
 }

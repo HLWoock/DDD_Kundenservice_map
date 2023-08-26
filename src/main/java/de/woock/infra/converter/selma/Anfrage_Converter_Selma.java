@@ -1,6 +1,5 @@
-package de.woock.infra.converter.dozer;
+package de.woock.infra.converter.selma;
 
-import org.dozer.DozerBeanMapper;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -10,13 +9,15 @@ import de.woock.domain.AnfragenOrdner;
 import de.woock.infra.entity.Anfrage_;
 import de.woock.infra.message.Ausgang;
 import de.woock.infra.repository.Anfragen;
+import fr.xebia.extras.selma.Selma;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-@Component
-public class Anfrage_Converter implements Converter<Anfrage, Anfrage_> {
+//@Component
+public class Anfrage_Converter_Selma implements Converter<Anfrage, Anfrage_> {
 	
-	private DozerBeanMapper mapper = new DozerBeanMapper();
+	SelmaMapper mapper = Selma.builder(SelmaMapper.class).build();
+
 	private Anfragen        anfragen; 
 	private Ausgang         ausgang;
 	
@@ -26,7 +27,7 @@ public class Anfrage_Converter implements Converter<Anfrage, Anfrage_> {
 		AnfragenOrdner anfragenOrdner = AnfragenOrdner.mit(anfragen);
 		AnfragenBoard anfragenBoard   = AnfragenBoard.mit(ausgang);
 
-		Anfrage_ anfrage_ = mapper.map(anfrage, Anfrage_.class);
+		Anfrage_ anfrage_ = mapper.asAnfrage_(anfrage);
 		anfrage.mit(anfragenOrdner,  anfragenBoard);
 		
 		return anfrage_;

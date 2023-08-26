@@ -1,6 +1,6 @@
-package de.woock.infra.converter.modelmapper;
+package de.woock.infra.converter.dozer;
 
-import org.modelmapper.ModelMapper;
+import org.dozer.DozerBeanMapper;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +14,11 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Component
-public class AnfrageConverter implements Converter<Anfrage_, Anfrage> {
+public class AnfrageConverter_Dozer implements Converter<Anfrage_, Anfrage> {
 	
-	private ModelMapper mapper = new ModelMapper();
-	private Anfragen    anfragen; 
-	private Ausgang     ausgang;
+	private DozerBeanMapper mapper = new DozerBeanMapper();
+	private Anfragen        anfragen; 
+	private Ausgang         ausgang;
 	
 	@Override
 	public Anfrage convert(Anfrage_ anfrage_) {

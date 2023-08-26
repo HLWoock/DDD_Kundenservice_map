@@ -13,8 +13,8 @@ import fr.xebia.extras.selma.Selma;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-@Component
-public class Anfrage_Converter implements Converter<Anfrage, Anfrage_> {
+//@Component
+public class AnfrageConverter_Selma implements Converter<Anfrage_, Anfrage> {
 	
 	SelmaMapper mapper = Selma.builder(SelmaMapper.class).build();
 
@@ -22,15 +22,15 @@ public class Anfrage_Converter implements Converter<Anfrage, Anfrage_> {
 	private Ausgang         ausgang;
 	
 	@Override
-	public Anfrage_ convert(Anfrage anfrage) {
+	public Anfrage convert(Anfrage_ anfrage_) {
 		log.debug("converting...");
 		AnfragenOrdner anfragenOrdner = AnfragenOrdner.mit(anfragen);
 		AnfragenBoard anfragenBoard   = AnfragenBoard.mit(ausgang);
 
-		Anfrage_ anfrage_ = mapper.asAnfrage_(anfrage);
+		Anfrage anfrage = mapper.asAnfrage(anfrage_, new Anfrage());
 		anfrage.mit(anfragenOrdner,  anfragenBoard);
 		
-		return anfrage_;
+		return anfrage;
 	}
 
 }

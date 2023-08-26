@@ -13,24 +13,23 @@ import de.woock.infra.repository.Anfragen;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-@Component
-public class Anfrage_Converter implements Converter<Anfrage, Anfrage_> {
+//@Component
+public class AnfrageConverter_ModelMapper implements Converter<Anfrage_, Anfrage> {
 	
 	private ModelMapper mapper = new ModelMapper();
 	private Anfragen    anfragen; 
 	private Ausgang     ausgang;
 	
 	@Override
-	public Anfrage_ convert(Anfrage anfrage) {
+	public Anfrage convert(Anfrage_ anfrage_) {
 		log.debug("converting...");
 		AnfragenOrdner anfragenOrdner = AnfragenOrdner.mit(anfragen);
 		AnfragenBoard anfragenBoard   = AnfragenBoard.mit(ausgang);
 
-		Anfrage_ anfrage_ = mapper.map(anfrage, Anfrage_.class);
-		
+		Anfrage anfrage = mapper.map(anfrage_, Anfrage.class);
 		anfrage.mit(anfragenOrdner,  anfragenBoard);
 		
-		return anfrage_;
+		return anfrage;
 	}
 
 }
