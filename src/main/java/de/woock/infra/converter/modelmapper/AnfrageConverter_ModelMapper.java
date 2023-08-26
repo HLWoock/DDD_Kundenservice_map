@@ -13,7 +13,7 @@ import de.woock.infra.repository.Anfragen;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-//@Component
+@Component
 public class AnfrageConverter_ModelMapper implements Converter<Anfrage_, Anfrage> {
 	
 	private ModelMapper mapper = new ModelMapper();

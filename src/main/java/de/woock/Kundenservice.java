@@ -1,8 +1,5 @@
 package de.woock;
 
-import static de.woock.domain.Abteilungen.Fuhrpark;
-import static de.woock.domain.Abteilungen.Verein;
-
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
