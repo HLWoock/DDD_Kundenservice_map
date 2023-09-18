@@ -9,6 +9,6 @@ import de.woock.domain.Anfrage;
 public class Eingang {
 	@JmsListener(destination = "Antwort", containerFactory = "myFactory", subscription = "stattauto")
 	public void antwortVerarbeiten(Anfrage antwort) {
-		antwort.beantworten(antwort.getAntwort());
+		antwort.beantworten(antwort.text());
 	}	
 }

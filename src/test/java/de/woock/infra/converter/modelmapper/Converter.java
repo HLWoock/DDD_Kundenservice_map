@@ -3,22 +3,22 @@ package de.woock.infra.converter.modelmapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import de.woock.domain.Anfrage;
-import de.woock.infra.entity.Anfrage_;
+import de.woock.infra.entity.AnfrageEntity;
 
 @SpringBootTest
 class Converter {
 
-	@Autowired AnfrageConverter_ModelMapper converter;
+	AnfrageConverter_ModelMapper converter = new AnfrageConverter_ModelMapper();
 
 	@Test
 	void testConvert() {
-		Anfrage_ anfrage_ = new Anfrage_("Wann und wo?");
-		Anfrage  anfrage  = converter.convert(anfrage_);
-		assertThat(anfrage.getAnfrage()).isEqualTo(anfrage_.getAnfrage());
+		AnfrageEntity anfrageEntity = new AnfrageEntity("Wann und wo?");
+		Anfrage       anfrage       = converter.convert(anfrageEntity);
+		
+		assertThat(anfrage.text()).isEqualTo(anfrageEntity.getAnfrage());
 	}
 
 }

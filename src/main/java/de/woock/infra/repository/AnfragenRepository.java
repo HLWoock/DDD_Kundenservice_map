@@ -2,7 +2,7 @@ package de.woock.infra.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import de.woock.infra.entity.Anfrage_;
+import de.woock.infra.entity.AnfrageEntity;
 
-public interface AnfragenRepository extends JpaRepository<Anfrage_, Long> {
+public interface AnfragenRepository extends JpaRepository<AnfrageEntity, Long> {
 }

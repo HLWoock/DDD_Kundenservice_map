@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-public class Anfrage_ extends Kopfdaten implements Serializable {
+public class AnfrageEntity extends Kopfdaten implements Serializable {
 
 	                             private String anfrage;
 	                             private String antwort;
 	                             private Date   von;
 	@Enumerated(EnumType.STRING) private Status status;
 	
-	public Anfrage_(String text) {
+	public AnfrageEntity(String text) {
 		this.anfrage = text;
 	}
 
