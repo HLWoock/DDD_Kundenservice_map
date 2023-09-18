@@ -16,8 +16,9 @@ class Converter_ {
 	@Test
 	void testConvert() {
 		Anfrage anfrage = new Anfrage().stellen("Wann und wo?");
-		AnfrageEntity anfrage_ = converter.convert(anfrage);
-		assertThat(anfrage_.getAnfrage()).isEqualTo(anfrage.text());
+		AnfrageEntity anfrageEntity = converter.convert(anfrage);
+		
+		assertThat(anfrageEntity.getAnfrage()).isEqualTo(anfrage.text());
+		assertThat(anfrageEntity.getId()).isNotNull();
 	}
-
 }

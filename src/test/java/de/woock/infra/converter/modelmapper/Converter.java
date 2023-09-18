@@ -19,6 +19,7 @@ class Converter {
 		Anfrage       anfrage       = converter.convert(anfrageEntity);
 		
 		assertThat(anfrage.text()).isEqualTo(anfrageEntity.getAnfrage());
+		assertThat(anfrageEntity.getId()).isEqualTo(anfrageEntity.getId());
 	}
 
 }
