@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import de.woock.domain.Anfrage;
+import de.woock.domain.Anfragen;
 import de.woock.infra.converter.dozer.Converter;
 import de.woock.infra.entity.AnfrageEntity;
-import de.woock.infra.repository.Anfragen;
 import de.woock.infra.repository.AnfragenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

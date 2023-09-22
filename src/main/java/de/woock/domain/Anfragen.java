@@ -1,6 +1,4 @@
-package de.woock.infra.repository;
-
-import de.woock.domain.Anfrage;
+package de.woock.domain;
 
 public interface Anfragen {
 	
