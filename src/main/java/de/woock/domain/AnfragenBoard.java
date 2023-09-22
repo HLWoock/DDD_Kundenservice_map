@@ -1,6 +1,9 @@
 package de.woock.domain;
 
+import org.dozer.DozerBeanMapper;
 import org.springframework.jms.core.JmsTemplate;
+
+import de.woock.infra.message.Umfrage;
 
 public class AnfragenBoard {
 	
@@ -25,7 +28,12 @@ public class AnfragenBoard {
 	
 	public void neueAnfrageFuerAbteilung(Anfrage anfrage, Abteilungen abteilung) {
 		ausgang.send(abteilung.name(), 
-                     session -> session.createObjectMessage(anfrage));
+                     session -> session.createObjectMessage(toUmfrage(anfrage)));
+	}
+	
+	private Umfrage toUmfrage(Anfrage anfrage) {
+		DozerBeanMapper mapper = new DozerBeanMapper();
+		return mapper.map(anfrage, Umfrage.class);
 	}
 
 }

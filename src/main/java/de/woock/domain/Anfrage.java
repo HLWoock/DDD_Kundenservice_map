@@ -2,18 +2,14 @@ package de.woock.domain;
 
 import static de.woock.domain.Status.AUFGENOMMEN;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import de.woock.Kundenservice;
 import lombok.Data;
 
-@SuppressWarnings({ "serial" })
 @Data
-public class Anfrage implements Serializable {
+public class Anfrage {
 	
-
 	private Long   id;
 	private String anfrage;
 	private String antwort;
@@ -40,8 +36,5 @@ public class Anfrage implements Serializable {
 		this.antwort = antwort;
 		Kundenservice.anfragenOrdner.updaten(this);
 	}
-	
-	public List<Anfrage> liste() {
-		return Kundenservice.anfragenOrdner.alleAnfragen();
-	}
+
 }

@@ -1,7 +1,5 @@
 package de.woock.domain;
 
-import java.util.List;
-
 import de.woock.infra.repository.Anfragen;
 import lombok.extern.log4j.Log4j2;
 
@@ -33,11 +31,6 @@ public class AnfragenOrdner {
 
 	public void updaten(Anfrage anfrage) {
 		anfragen.hinzufuegen(anfrage);		
-	}
-	
-	public List<Anfrage> alleAnfragen() {
-		log.debug("alle Anfragen");
-		return anfragen.alle();
 	}
 
 }
