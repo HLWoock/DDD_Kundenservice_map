@@ -1,17 +1,17 @@
 package de.woock.domain;
 
-import de.woock.infra.message.Ausgang;
+import org.springframework.jms.core.JmsTemplate;
 
 public class AnfragenBoard {
 	
 	private static volatile AnfragenBoard anfragenBoard;
-	private static volatile Ausgang       ausgang;
+	private static volatile JmsTemplate   ausgang;
 	
-	private AnfragenBoard(Ausgang ausgang) {
+	private AnfragenBoard(JmsTemplate ausgang) {
 		AnfragenBoard.ausgang = ausgang;
 	}
 	
-	public static AnfragenBoard mit(Ausgang ausgang) {
+	public static AnfragenBoard mit(JmsTemplate ausgang) {
 		if (anfragenBoard == null) {
             synchronized (AnfragenBoard.class) {
                 if (anfragenBoard == null) {
@@ -24,7 +24,8 @@ public class AnfragenBoard {
 
 	
 	public void neueAnfrageFuerAbteilung(Anfrage anfrage, Abteilungen abteilung) {
-		ausgang.neueAnfrageFuerAbteilung(anfrage, abteilung);
+		ausgang.send(abteilung.name(), 
+                     session -> session.createObjectMessage(anfrage));
 	}
 
 }

@@ -1,1 +1,2 @@
-image::file:uml.png[width=10,height=10] 
+image::file:umlDb.png[width=10,height=10] 
+image::file:umlMsg.png[width=10,height=10] 

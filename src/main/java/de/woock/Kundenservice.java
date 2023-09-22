@@ -7,13 +7,12 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jms.core.JmsTemplate;
 
 import de.woock.domain.Anfrage;
 import de.woock.domain.AnfragenBoard;
 import de.woock.domain.AnfragenOrdner;
-import de.woock.infra.message.Ausgang;
-import de.woock.infra.repository.Anfragen;
-import de.woock.infra.repository.AnfragenRepository;
+import de.woock.infra.service.AnfragenService;
 
 @SpringBootApplication
 public class Kundenservice {
@@ -26,20 +25,18 @@ public class Kundenservice {
 	}
 	
 	@Bean
-	public ApplicationRunner init(AnfragenRepository anfragenRepository, Ausgang ausgang) {
+	public ApplicationRunner init(AnfragenService anfragenService, JmsTemplate ausgang) {
 		return args -> {
-			Anfragen anfragen = new Anfragen(anfragenRepository);
-			Kundenservice.anfragenOrdner = AnfragenOrdner.mit(anfragen);
-			
-			Kundenservice.anfragenBoard = AnfragenBoard.mit(ausgang);
+			Kundenservice.anfragenOrdner = AnfragenOrdner.mit(anfragenService);
+			Kundenservice.anfragenBoard  = AnfragenBoard.mit(ausgang);
 			
 			new Anfrage().stellen("Wann kommen endlich die versprochenen Jetski?")
-            .weiterleitenAn(Fuhrpark)
-            .beantworten("In 2 Wochen");
+                         .weiterleitenAn(Fuhrpark)
+                         .beantworten("In 2 Wochen");
 			
 			new Anfrage().stellen("Was kostet die Mitgliedschaft fuer ein Jahr?")
-			            .weiterleitenAn(Verein)
-			            .beantworten("50 Euro");
+			             .weiterleitenAn(Verein)
+			             .beantworten("50 Euro");
 		};
 	}
 }
