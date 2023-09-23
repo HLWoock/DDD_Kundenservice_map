@@ -20,7 +20,6 @@ import lombok.extern.log4j.Log4j2;
 public class AnfragenRESTController {
 	
 	private final AnfragenService anfragenService;
-	private final Converter       converter;
 	
 	@GetMapping("/anfragen")
 	public List<AnfrageDTO> alleAnfragen() {
@@ -28,7 +27,7 @@ public class AnfragenRESTController {
 		
 		return anfragenService.alle()
                               .stream()
-                              .map(anfrage -> converter.toDto(anfrage))
+                              .map(anfrage -> Converter.toDto(anfrage))
                               .collect(Collectors.toList());
 
 	}

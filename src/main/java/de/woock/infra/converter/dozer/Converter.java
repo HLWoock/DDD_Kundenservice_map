@@ -11,22 +11,22 @@ import de.woock.infra.repository.AnfrageDTO;
 @Component
 public class Converter {
 	
-	DozerBeanMapper mapper = new DozerBeanMapper();
+	private static DozerBeanMapper mapper = new DozerBeanMapper();
 
-	public Umfrage toUmfrage(Anfrage anfrage) {
+	public static Umfrage toUmfrage(Anfrage anfrage) {
 		DozerBeanMapper mapper = new DozerBeanMapper();
 		return mapper.map(anfrage, Umfrage.class);
 	}
 
-	public AnfrageDTO toDto(AnfrageEntity anfrageEntity) {
+	public static AnfrageDTO toDto(AnfrageEntity anfrageEntity) {
 		return mapper.map(anfrageEntity, AnfrageDTO.class);
 	}	
 	
-	public AnfrageEntity toEntity(Anfrage anfrage) {
+	public static AnfrageEntity toEntity(Anfrage anfrage) {
 		return mapper.map(anfrage, AnfrageEntity.class);
 	}
 	
-	public Anfrage toDomain(AnfrageEntity anfrageEntity) {
+	public static Anfrage toDomain(AnfrageEntity anfrageEntity) {
 		return mapper.map(anfrageEntity, Anfrage.class);
-	}	
+	}
 }

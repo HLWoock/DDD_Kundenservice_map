@@ -18,13 +18,12 @@ import lombok.extern.log4j.Log4j2;
 public class AnfragenService implements Anfragen {
 	
 	private final AnfragenRepository anfragenRepository;
-	private final Converter          converter;
 
 
 	public Anfrage hinzufuegen(Anfrage anfrage) {
 		log.debug("füge Anfrage hinzu: {}", anfrage.text());
-		AnfrageEntity anfrageEntity = anfragenRepository.save(converter.toEntity(anfrage));
-		return converter.toDomain(anfrageEntity);
+		AnfrageEntity anfrageEntity = anfragenRepository.save(Converter.toEntity(anfrage));
+		return Converter.toDomain(anfrageEntity);
 	}
 
 	public List<AnfrageEntity> alle() {

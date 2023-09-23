@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class AnfragenMVCController {
 	
 	private final AnfragenService anfragenService;
-	private final Converter       converter;
 
 	@GetMapping({"/", "/index"})
     public ModelAndView home() {
@@ -44,7 +43,7 @@ public class AnfragenMVCController {
 	private List<AnfrageDTO> anfragen() {
 		return  anfragenService.alle()
                                .stream()
-                               .map(anfrage -> converter.toDto(anfrage))
+                               .map(anfrage -> Converter.toDto(anfrage))
                                .collect(Collectors.toList());
 	}
 
