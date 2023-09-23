@@ -28,7 +28,7 @@ public class Kundenservice {
 	public ApplicationRunner init(AnfragenService anfragenService, JmsTemplate ausgang) {
 		return args -> {
 			Kundenservice.anfragenOrdner = AnfragenOrdner.mit(anfragenService);
-			Kundenservice.anfragenBoard  = AnfragenBoard.mit(ausgang);
+			Kundenservice.anfragenBoard  = AnfragenBoard.mit(anfragenService);
 			
 			new Anfrage().stellen("Wann kommen endlich die versprochenen Jetski?")
                          .weiterleitenAn(Fuhrpark)

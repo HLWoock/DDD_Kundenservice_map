@@ -1,19 +1,15 @@
 package de.woock.domain;
 
-import org.springframework.jms.core.JmsTemplate;
-
-import de.woock.infra.converter.dozer.Converter;
-
-public class AnfragenBoard {
+public class AnfragenBoard  {
 	
 	private static volatile AnfragenBoard anfragenBoard;
-	private static volatile JmsTemplate   ausgang;
+	private static volatile Ausgang       ausgang;
 	
-	private AnfragenBoard(JmsTemplate ausgang) {
+	private AnfragenBoard(Ausgang ausgang) {
 		AnfragenBoard.ausgang = ausgang;
 	}
 	
-	public static AnfragenBoard mit(JmsTemplate ausgang) {
+	public static AnfragenBoard mit(Ausgang ausgang) {
 		if (anfragenBoard == null) {
             synchronized (AnfragenBoard.class) {
                 if (anfragenBoard == null) {
@@ -22,11 +18,11 @@ public class AnfragenBoard {
             }
         }
         return anfragenBoard;
-    }	
+    }
 
-	
 	public void neueAnfrageFuerAbteilung(Anfrage anfrage, Abteilungen abteilung) {
-		ausgang.send(abteilung.name(), 
-                     session -> session.createObjectMessage(Converter.toUmfrage(anfrage)));
-	}
+		ausgang.neueAnfrageFuerAbteilung(anfrage, abteilung);
+		
+	}	
+
 }
