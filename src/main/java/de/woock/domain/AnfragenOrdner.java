@@ -1,8 +1,5 @@
 package de.woock.domain;
 
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
 public class AnfragenOrdner {
 	
 	private static volatile AnfragenOrdner anfragenOrdner;
@@ -13,7 +10,6 @@ public class AnfragenOrdner {
 	}
 	
 	public static AnfragenOrdner mit(Anfragen anfragen) {
-		log.debug("mit");
 		if (anfragenOrdner == null) {
             synchronized (AnfragenOrdner.class) {
                 if (anfragenOrdner == null) {
