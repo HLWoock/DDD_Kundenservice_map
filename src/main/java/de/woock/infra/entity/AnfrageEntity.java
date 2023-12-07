@@ -26,5 +26,4 @@ public class AnfrageEntity extends Kopfdaten implements Serializable {
 	public AnfrageEntity(String text) {
 		this.anfrage = text;
 	}
-
 }

@@ -89,19 +89,19 @@
 			<table class="table table-striped" border="1">
 			    <tr>
 			        <th>Anfragen Nr.</th>
-			        <th style="display:none;">Version</th>
 			        <th>Frage</th>
 			        <th>Antwort</th>
-			        <th>Prio</th>
+			        <th>von</th>
+			        <th>Status</th>
 			        <th>Aktion</th>
 			    </tr>
 			    <#list anfragen as anfrage>
 					<tr>
 					    <td>${anfrage.id}</td>
-					    <td style="display:none;">${anfrage.version}</td>
-					    <td>${anfrage.frage}</td>
+					    <td>${anfrage.anfrage}</td>
 					    <td>${anfrage.antwort}</td>
-					    <td>${anfrage.prio}</td>
+					    <td>${anfrage.von}</td>
+					    <td>${anfrage.status}</td>
 					    <td><button               type="button" class="bearbeiten material-icons"><i class="fas fa-edit"></i></button>
                             <button               type="button" class="loescfen material-icons"><i class="far fa-trash-alt"></i></button>
                             <button id="bn_check" type="button" class="check material-icons"><i class="fas fa-check"></i></button>
