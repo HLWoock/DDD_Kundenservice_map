@@ -10,7 +10,7 @@ services:
     networks:
       - stattauto
   kundenservice:
-    image: oosemicro/sb-kundenservice:0.1.0
+    image: hermannw/kundenservice:0.1.0
     ports:
       - 8081:8081
     networks:
