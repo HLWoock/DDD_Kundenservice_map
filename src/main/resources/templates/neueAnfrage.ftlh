@@ -83,7 +83,7 @@
 					  <form name="anfrage" action="" method="POST" modelAttribute="anfrage">
 					      <div class="form-group">
 						      <label for="id">Frage</label>
-							  <@spring.formTextarea "anfrage.frage" "rows='4' cols='60'" />
+							  <@spring.formTextarea "anfrage.anfrage" "rows='4' cols='60'" />
 							  <@spring.showErrors "<br>" "error"/>
 						  </div><br>
 					      <div class="form-group">

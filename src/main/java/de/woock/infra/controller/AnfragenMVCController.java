@@ -45,6 +45,14 @@ public class AnfragenMVCController {
 		return model;
 	}
 	
+	@GetMapping("/neueAnfrage")
+	public ModelAndView neueAnfrageForm() {
+		ModelAndView model = new ModelAndView("neueAnfrage");
+		model.addObject("anfrage", new AnfrageDTO());
+		return model;
+	}
+	
+	
 	private List<AnfrageDTO> anfragen() {
 		return  anfragenService.alle()
                                .stream()
