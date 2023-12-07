@@ -7,6 +7,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
@@ -30,16 +31,25 @@ public class MsgConfig {
 	}
 
 	@Bean
-	public ActiveMQConnectionFactory connectionFactory() {
+	@Profile("windows")
+	public ActiveMQConnectionFactory connectionFactory_windows() {
 		ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("admin", "admin", "tcp://localhost:61616");
 		factory.setTrustAllPackages(true);
 		return factory;
 	}
 	
 	@Bean
-	public JmsTemplate jmsTemplate() {
+	@Profile("linux")
+	public ActiveMQConnectionFactory connectionFactory_linux() {
+		ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("admin", "admin", "tcp://activemq:61616");
+		factory.setTrustAllPackages(true);
+		return factory;
+	}
+	
+	@Bean
+	public JmsTemplate jmsTemplate(ActiveMQConnectionFactory connectionFactory) {
 	    JmsTemplate template = new JmsTemplate();
-	    template.setConnectionFactory(connectionFactory());
+	    template.setConnectionFactory(connectionFactory);
 	    template.setPubSubDomain(false);
 	    return template;
 	}
