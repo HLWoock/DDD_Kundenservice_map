@@ -24,7 +24,12 @@ public class AnfragenMVCController {
     public ModelAndView home() {
     	ModelAndView model = new ModelAndView("index");
     	
-    	model.addObject("anfragen", anfragen());
+    	long anfragen    = anfragenService.anzahlAnfragen();
+    	long beschwerden = anfragenService.anzahlBeschwerden();
+    	
+    	model.addObject("anfragen", anfragen);
+    	model.addObject("beschwerden", beschwerden);
+    	
         return model;
     }
 

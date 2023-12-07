@@ -11,6 +11,7 @@ import de.woock.domain.Anfragen;
 import de.woock.domain.Ausgang;
 import de.woock.infra.converter.dozer.Converter;
 import de.woock.infra.entity.AnfrageEntity;
+import de.woock.infra.repository.AnfrageDTO;
 import de.woock.infra.repository.AnfragenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,7 +32,6 @@ public class AnfragenService implements Anfragen, Ausgang {
 	}
 
 	public List<AnfrageEntity> alle() {
-		log.debug("alle");
 		return anfragenRepository.findAll();
 	}
 	
@@ -39,6 +39,14 @@ public class AnfragenService implements Anfragen, Ausgang {
 	public void neueAnfrageFuerAbteilung(Anfrage anfrage, Abteilungen abteilung) {
 		jmsTemplate.send(abteilung.name(), 
                          session -> session.createObjectMessage(Converter.toUmfrage(anfrage)));
+	}
+
+	public long anzahlAnfragen() {
+		return anfragenRepository.count();
+	}
+
+	public long anzahlBeschwerden() {
+		return 0;
 	}
 	
 	
