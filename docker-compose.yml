@@ -2,6 +2,7 @@ version: '3'
 services:
   activemq:
     image: rmohr/activemq:latest
+    container_name: activemq
     ports:
       - 61616:61616   # OpenWire
       - 8161:8161     # Web Console
@@ -11,6 +12,7 @@ services:
       - stattauto
   kundenservice:
     image: hermannw/kundenservice:0.1.0
+    container_name: kundenservice
     ports:
       - 8081:8081
     networks:
