@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.woock.infra.converter.dozer.Converter;
+import de.woock.infra.converter.AnfrageConverter;
 import de.woock.infra.repository.AnfrageDTO;
 import de.woock.infra.service.AnfragenService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class AnfragenRESTController {
 		
 		return anfragenService.alle()
                               .stream()
-                              .map(anfrage -> Converter.toDto(anfrage))
+                              .map(anfrage -> AnfrageConverter.toDto(anfrage))
                               .collect(Collectors.toList());
 
 	}

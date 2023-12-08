@@ -9,7 +9,7 @@ import de.woock.domain.Abteilungen;
 import de.woock.domain.Anfrage;
 import de.woock.domain.Anfragen;
 import de.woock.domain.Ausgang;
-import de.woock.infra.converter.dozer.Converter;
+import de.woock.infra.converter.AnfrageConverter;
 import de.woock.infra.entity.AnfrageEntity;
 import de.woock.infra.repository.AnfragenRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,8 @@ public class AnfragenService implements Anfragen, Ausgang {
 
 	public Anfrage hinzufuegen(Anfrage anfrage) {
 		log.debug("füge Anfrage hinzu: {}", anfrage.text());
-		AnfrageEntity anfrageEntity = anfragenRepository.save(Converter.toEntity(anfrage));
-		return Converter.toDomain(anfrageEntity);
+		AnfrageEntity anfrageEntity = anfragenRepository.save(AnfrageConverter.toEntity(anfrage));
+		return AnfrageConverter.Entity2Anfrage(anfrageEntity);
 	}
 
 	public List<AnfrageEntity> alle() {
@@ -37,7 +37,7 @@ public class AnfragenService implements Anfragen, Ausgang {
 	@Override
 	public void neueAnfrageFuerAbteilung(Anfrage anfrage, Abteilungen abteilung) {
 		jmsTemplate.send(abteilung.name(), 
-                         session -> session.createObjectMessage(Converter.toUmfrage(anfrage)));
+                         session -> session.createObjectMessage(AnfrageConverter.toUmfrage(anfrage)));
 	}
 
 	public long anzahlAnfragen() {
@@ -46,6 +46,11 @@ public class AnfragenService implements Anfragen, Ausgang {
 
 	public long anzahlBeschwerden() {
 		return 0;
+	}
+
+	public void heuteGestellt(Anfrage anfrage) {
+		anfrage.stellen(anfrage.getAnfrage());
+		
 	}
 	
 	

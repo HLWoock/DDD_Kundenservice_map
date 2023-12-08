@@ -20,7 +20,7 @@ public class AnfrageEntity extends Kopfdaten implements Serializable {
 
 	                             private String anfrage;
 	                             private String antwort;
-	                             private Date   von;
+	                             private String von;
 	@Enumerated(EnumType.STRING) private Status status;
 	
 	public AnfrageEntity(String text) {

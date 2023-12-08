@@ -3,28 +3,19 @@ package de.woock;
 import static de.woock.domain.Abteilungen.Fuhrpark;
 import static de.woock.domain.Abteilungen.Verein;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.jms.core.JmsTemplate;
 
 import de.woock.domain.Anfrage;
 import de.woock.domain.AnfragenBoard;
 import de.woock.domain.AnfragenOrdner;
 import de.woock.infra.service.AnfragenService;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 @SpringBootApplication
 public class Kundenservice {
-	
-	@Autowired
-	private static ConfigurableEnvironment env;
 	
 	public static AnfragenOrdner anfragenOrdner;
 	public static AnfragenBoard  anfragenBoard;

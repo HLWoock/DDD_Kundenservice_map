@@ -1,6 +1,6 @@
-package de.woock.infra.converter.dozer;
+package de.woock.infra.converter;
 
-import org.dozer.DozerBeanMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import de.woock.domain.Anfrage;
@@ -9,12 +9,12 @@ import de.woock.infra.message.Umfrage;
 import de.woock.infra.repository.AnfrageDTO;
 
 @Component
-public class Converter {
+public class AnfrageConverter {
 	
-	private static DozerBeanMapper mapper = new DozerBeanMapper();
+	private static ModelMapper mapper = new ModelMapper();
 
 	public static Umfrage toUmfrage(Anfrage anfrage) {
-		DozerBeanMapper mapper = new DozerBeanMapper();
+		ModelMapper mapper = new ModelMapper();
 		return mapper.map(anfrage, Umfrage.class);
 	}
 
@@ -26,7 +26,11 @@ public class Converter {
 		return mapper.map(anfrage, AnfrageEntity.class);
 	}
 	
-	public static Anfrage toDomain(AnfrageEntity anfrageEntity) {
+	public static Anfrage DTO2Anfrage(AnfrageDTO AnfrageDTO) {
+		return mapper.map(AnfrageDTO, Anfrage.class);
+	}
+	
+	public static Anfrage Entity2Anfrage(AnfrageEntity anfrageEntity) {
 		return mapper.map(anfrageEntity, Anfrage.class);
 	}
 }
