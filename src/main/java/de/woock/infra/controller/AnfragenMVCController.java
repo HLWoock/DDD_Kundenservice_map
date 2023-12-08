@@ -9,12 +9,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import de.woock.domain.Anfrage;
 import de.woock.infra.converter.AnfrageConverter;
-import de.woock.infra.repository.AnfrageDTO;
+import de.woock.infra.dto.AnfrageDTO;
+import de.woock.infra.dto.WeiterleitenDTO;
 import de.woock.infra.service.AnfragenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -64,7 +66,7 @@ public class AnfragenMVCController {
 		log.debug("neue Anfrage: '{}' mit Prio {} wird gestellt", anfrageDto.getAnfrage(), anfrageDto.getPrio());
 		Anfrage anfrage = null;
 //		try {
-			anfrage = AnfrageConverter.DTO2Anfrage(anfrageDto);
+			anfrage = AnfrageConverter.toAnfrage(anfrageDto);
 //		} catch (LeeresFeldFehler e) {
 //			ValidationUtils.rejectIfEmptyOrWhitespace(result, e.feld(), "feld.nicht.leer");
 //		}
@@ -74,6 +76,25 @@ public class AnfragenMVCController {
 		}
 		anfragenService.heuteGestellt(anfrage);
 		log.debug("neue Anfrage: {}", anfrage);
+		return "redirect:/anfragen";
+	}
+	
+	
+	@GetMapping("/anfrage/{anfrageId}/weiterleiten")
+	public ModelAndView anfrageWeiterleitenForm(@PathVariable Long anfrageId) {
+		ModelAndView model   = new ModelAndView("anfrageWeiterleiten");
+		Anfrage      anfrage = anfragenService.anfrage(anfrageId);
+		
+		model.addObject("anfrage", new WeiterleitenDTO(anfrageId, anfrage.getAnfrage(), false, false, false));
+		log.debug("Anfrage {} wird gerade zur Weiterleitung in die Anzeige gebracht", anfrage.getId());
+		return model;
+	}
+	
+	@PostMapping("/anfrage/{anfrageId}/weiterleiten")
+	public String anfrageWeiterleiten(@ModelAttribute("anfrage") WeiterleitenDTO weiterleitenDTO) {
+		log.debug("Anfrage {} weiterleiten", weiterleitenDTO.getId());
+		anfragenService.anfrageWeiterleiten(weiterleitenDTO.getId(), AnfrageConverter.konvertiere(weiterleitenDTO));
+ 
 		return "redirect:/anfragen";
 	}
 	

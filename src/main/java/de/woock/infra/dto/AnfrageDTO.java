@@ -1,4 +1,4 @@
-package de.woock.infra.repository;
+package de.woock.infra.dto;
 
 import java.io.Serializable;
 

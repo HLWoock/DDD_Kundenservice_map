@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.woock.infra.converter.AnfrageConverter;
-import de.woock.infra.repository.AnfrageDTO;
+import de.woock.infra.dto.AnfrageDTO;
 import de.woock.infra.service.AnfragenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

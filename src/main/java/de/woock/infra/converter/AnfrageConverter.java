@@ -1,12 +1,21 @@
 package de.woock.infra.converter;
 
+import static de.woock.domain.Abteilungen.Abrechnung;
+import static de.woock.domain.Abteilungen.Fuhrpark;
+import static de.woock.domain.Abteilungen.Verein;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import de.woock.domain.Abteilungen;
 import de.woock.domain.Anfrage;
+import de.woock.infra.dto.AnfrageDTO;
+import de.woock.infra.dto.WeiterleitenDTO;
 import de.woock.infra.entity.AnfrageEntity;
 import de.woock.infra.message.Umfrage;
-import de.woock.infra.repository.AnfrageDTO;
 
 @Component
 public class AnfrageConverter {
@@ -26,11 +35,19 @@ public class AnfrageConverter {
 		return mapper.map(anfrage, AnfrageEntity.class);
 	}
 	
-	public static Anfrage DTO2Anfrage(AnfrageDTO AnfrageDTO) {
+	public static Anfrage toAnfrage(AnfrageDTO AnfrageDTO) {
 		return mapper.map(AnfrageDTO, Anfrage.class);
 	}
 	
-	public static Anfrage Entity2Anfrage(AnfrageEntity anfrageEntity) {
+	public static Anfrage toAnfrage(AnfrageEntity anfrageEntity) {
 		return mapper.map(anfrageEntity, Anfrage.class);
+	}
+
+	public static List<Abteilungen> konvertiere(WeiterleitenDTO weiterleitenDto) {
+		List<Abteilungen> abteilungen = new ArrayList<>();
+		if (weiterleitenDto.getAbrechnung() == true) abteilungen.add(Abrechnung);
+		if (weiterleitenDto.getFuhrpark()   == true) abteilungen.add(Fuhrpark);
+		if (weiterleitenDto.getVerein()     == true) abteilungen.add(Verein);
+		return abteilungen;
 	}
 }

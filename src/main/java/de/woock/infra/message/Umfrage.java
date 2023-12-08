@@ -1,8 +1,6 @@
 package de.woock.infra.message;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import de.woock.domain.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;

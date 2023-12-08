@@ -27,7 +27,7 @@ public class AnfragenService implements Anfragen, Ausgang {
 	public Anfrage hinzufuegen(Anfrage anfrage) {
 		log.debug("füge Anfrage hinzu: {}", anfrage.text());
 		AnfrageEntity anfrageEntity = anfragenRepository.save(AnfrageConverter.toEntity(anfrage));
-		return AnfrageConverter.Entity2Anfrage(anfrageEntity);
+		return AnfrageConverter.toAnfrage(anfrageEntity);
 	}
 
 	public List<AnfrageEntity> alle() {
@@ -52,6 +52,14 @@ public class AnfragenService implements Anfragen, Ausgang {
 		anfrage.stellen(anfrage.getAnfrage());
 		
 	}
+	public Anfrage anfrage(Long anfrageId) {
+		AnfrageEntity anfrageEntity = anfragenRepository.findById(anfrageId)
+				                                        .orElse(new AnfrageEntity());
+		return AnfrageConverter.toAnfrage(anfrageEntity);
+	}
 	
-	
+	public void anfrageWeiterleiten(Long anfrageId, List<Abteilungen> abteilungen) {
+		AnfrageEntity anfrageEntity = anfragenRepository.findById(anfrageId).orElse(new AnfrageEntity());
+		abteilungen.forEach(abteilung -> AnfrageConverter.toAnfrage(anfrageEntity).weiterleitenAn(abteilung));
+	}
 }
