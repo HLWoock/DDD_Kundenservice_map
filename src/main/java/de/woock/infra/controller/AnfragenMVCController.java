@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import de.woock.domain.Anfrage;
+import de.woock.domain.Status;
 import de.woock.infra.converter.AnfrageConverter;
 import de.woock.infra.dto.AnfrageDTO;
 import de.woock.infra.dto.WeiterleitenDTO;
+import de.woock.infra.metrics.MetricsService;
 import de.woock.infra.service.AnfragenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,6 +31,7 @@ import lombok.extern.log4j.Log4j2;
 public class AnfragenMVCController {
 	
 	private final AnfragenService anfragenService;
+	private final MetricsService metricsService;
 
 	@GetMapping({"/", "/index"})
     public ModelAndView home() {
@@ -80,6 +84,29 @@ public class AnfragenMVCController {
 	}
 	
 	
+	@GetMapping("/anfrage/{anfrageId}/bearbeiten")
+	public ModelAndView anfrageBearbeitenForm(@PathVariable Long anfrageId) {
+		ModelAndView model   = new ModelAndView("anfrageBearbeiten");
+		Anfrage      anfrage = anfragenService.anfrage(anfrageId);
+		
+		model.addObject("statuus", Status.values()); 
+		model.addObject("anfrage", anfrage);
+		log.debug("Anfrage {} wird gerade zur Bearbeitung in die Anzeige gebracht", anfrage.getId());
+		return model;
+	}
+	
+	@PostMapping("/anfrage/{anfrageId}/bearbeiten")
+	public String anfrageBearbeiten(@ModelAttribute("anfrage") AnfrageDTO anfrageDTO) {
+		log.debug("Anfrage {} fertig bearbeitet", anfrageDTO.getId());
+//		try {
+			anfragenService.anfrageAktualisiert(AnfrageConverter.toAnfrage(anfrageDTO));
+			metricsService.increment("stattauto.anfragen");
+	//	} catch (LeeresFeldFehler e) {
+		//	e.printStackTrace();
+	//	} 
+		return "redirect:/anfragen";
+	}	
+	
 	@GetMapping("/anfrage/{anfrageId}/weiterleiten")
 	public ModelAndView anfrageWeiterleitenForm(@PathVariable Long anfrageId) {
 		ModelAndView model   = new ModelAndView("anfrageWeiterleiten");
@@ -95,6 +122,14 @@ public class AnfragenMVCController {
 		log.debug("Anfrage {} weiterleiten", weiterleitenDTO.getId());
 		anfragenService.anfrageWeiterleiten(weiterleitenDTO.getId(), AnfrageConverter.konvertiere(weiterleitenDTO));
  
+		return "redirect:/anfragen";
+	}
+	
+	@DeleteMapping("/anfrage/{anfrageId}")
+	public String anfrageLoeschen(@PathVariable Long anfrageId) {
+		log.debug("Anfrage {} loeschen", anfrageId);
+		anfragenService.anfrageLoeschen(anfrageId);
+		
 		return "redirect:/anfragen";
 	}
 	

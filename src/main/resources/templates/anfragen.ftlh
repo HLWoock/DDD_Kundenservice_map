@@ -29,6 +29,18 @@
 					console.log(url);
 					window.location.href = url;
       			});
+      			$('.loeschen').click(function(e) {
+      				var activeRow=$(this).closest("tr"); 
+         
+        			var anfrageId = activeRow.find("td:eq(0)").text();
+        			
+        			var url = "http://localhost:8081/anfrage/" + anfrageId;
+        			fetch(url, { method: 'DELETE' })
+        			
+                    url = "http://localhost:8081/anfragen";
+                    console.log(url);
+					$(location).prop('href', url)
+      			});
       		});
         </script>
         
@@ -103,7 +115,7 @@
 					    <td>${anfrage.von}</td>
 					    <td>${anfrage.status}</td>
 					    <td><button               type="button" class="bearbeiten material-icons"><i class="fas fa-edit"></i></button>
-                            <button               type="button" class="loescfen material-icons"><i class="far fa-trash-alt"></i></button>
+                            <button               type="button" class="loeschen material-icons"><i class="far fa-trash-alt"></i></button>
                             <button id="bn_check" type="button" class="check material-icons"><i class="fas fa-check"></i></button>
                             <button               type="button" class="weiterleiten material-icons"><i class="fas fa-file-export"></i></button></td>
 			        </tr>

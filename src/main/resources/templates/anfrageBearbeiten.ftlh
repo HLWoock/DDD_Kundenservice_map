@@ -70,7 +70,6 @@
 			<div class="col-lg-12 col-md-10 mx-auto">
 				<fieldset>
 					<h1>Anfrage:</h1>
-					<@spring.bind "prios"/>
 					<@spring.bind "statuus"/>
 					<form name="anfrage" action="" method="POST" modelAttribute="anfrage">
 						<div class="form-group">
@@ -78,12 +77,8 @@
 							<@spring.formInput "anfrage.id" "placeholder='id' readonly='true'" "text"/> <br />
 						</div><br>
 						<div class="form-group">
-						    <label for="version">Version</label>
-							<@spring.formInput "anfrage.version" "placeholder='version' readonly='false'" "text"/> <br />
-						</div><br>
-						<div class="form-group">
 						    <label for="frage">Frage</label>
-							<@spring.formTextarea "anfrage.frage" "rows='4' cols='60' readonly='true'" /> <br />
+							<@spring.formTextarea "anfrage.anfrage" "rows='4' cols='60' readonly='true'" /> <br />
 						</div><br>
 						<div class="form-group">
 						    <label for="anfrage">Antwort</label>
@@ -97,11 +92,6 @@
 					        <label for="status">Status</label>
 					        <@spring.formSingleSelect "anfrage.status" statuus "style='width:200px'" />
 					    </div><br>
-					    <div class="form-group">
-					        <label for="prio">Prio</label>
-					        <@spring.formSingleSelect "anfrage.prio" prios "style='width:200px'" />
-					    </div><br>  
-						
 						<input type="submit" value="Bearbeitet" />
 					</form>
 				</fieldset>

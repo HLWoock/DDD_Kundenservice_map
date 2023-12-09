@@ -40,4 +40,7 @@ public class Anfrage {
 		Kundenservice.anfragenOrdner.updaten(this);
 	}
 
+	public Anfrage aktualisiert() {
+		return Kundenservice.anfragenOrdner.abheften(this);
+	}
 }

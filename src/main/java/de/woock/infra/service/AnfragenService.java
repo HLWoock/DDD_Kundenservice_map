@@ -3,6 +3,7 @@ package de.woock.infra.service;
 import java.util.List;
 
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import de.woock.domain.Abteilungen;
@@ -61,5 +62,21 @@ public class AnfragenService implements Anfragen, Ausgang {
 	public void anfrageWeiterleiten(Long anfrageId, List<Abteilungen> abteilungen) {
 		AnfrageEntity anfrageEntity = anfragenRepository.findById(anfrageId).orElse(new AnfrageEntity());
 		abteilungen.forEach(abteilung -> AnfrageConverter.toAnfrage(anfrageEntity).weiterleitenAn(abteilung));
+	}
+	
+	public void anfrageLoeschen(Long anfrageId) {
+		AnfrageEntity anfrageEntity = anfragenRepository.findById(anfrageId).orElse(new AnfrageEntity());
+		anfragenRepository.delete(anfrageEntity);
+	}
+
+	public void anfrageAktualisiert(Anfrage anfrage) {
+		log.debug("Anfrage {} wird aktualisiert", anfrage.getId());
+	
+		try {
+			anfrage.aktualisiert();
+		} catch (ObjectOptimisticLockingFailureException ex) {
+			ex.printStackTrace();
+			log.error("Anfrage {} wird gerade von jemand anderem bearbeitet", anfrage.getId());
+		}
 	}
 }
