@@ -1,5 +1,7 @@
 package de.woock.infra.service;
 
+import static de.woock.domain.Status.*;
+
 import java.util.List;
 
 import org.springframework.jms.core.JmsTemplate;
@@ -10,6 +12,7 @@ import de.woock.domain.Abteilungen;
 import de.woock.domain.Anfrage;
 import de.woock.domain.Anfragen;
 import de.woock.domain.Ausgang;
+import de.woock.domain.Status;
 import de.woock.infra.converter.AnfrageConverter;
 import de.woock.infra.dto.AnfrageDTO;
 import de.woock.infra.entity.AnfrageEntity;
@@ -52,7 +55,6 @@ public class AnfragenService implements Anfragen, Ausgang {
 
 	public void heuteGestellt(Anfrage anfrage) {
 		anfrage.stellen(anfrage.getAnfrage());
-		
 	}
 	
 	public Anfrage anfrage(Long anfrageId) {
@@ -69,6 +71,8 @@ public class AnfragenService implements Anfragen, Ausgang {
 	
 	public void anfrageWeiterleiten(Long anfrageId, List<Abteilungen> abteilungen) {
 		AnfrageEntity anfrageEntity = anfragenRepository.findById(anfrageId).orElse(new AnfrageEntity());
+		anfrageEntity.setStatus(IN_ARBEIT);
+		anfragenRepository.save(anfrageEntity);
 		abteilungen.forEach(abteilung -> AnfrageConverter.toAnfrage(anfrageEntity).weiterleitenAn(abteilung));
 	}
 	
