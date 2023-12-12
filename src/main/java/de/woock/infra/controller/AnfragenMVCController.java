@@ -19,6 +19,7 @@ import de.woock.domain.Status;
 import de.woock.infra.converter.AnfrageConverter;
 import de.woock.infra.dto.AnfrageDTO;
 import de.woock.infra.dto.WeiterleitenDTO;
+import de.woock.infra.entity.AnfrageEntity;
 import de.woock.infra.metrics.MetricsService;
 import de.woock.infra.service.AnfragenService;
 import lombok.RequiredArgsConstructor;
@@ -86,24 +87,25 @@ public class AnfragenMVCController {
 	
 	@GetMapping("/anfrage/{anfrageId}/bearbeiten")
 	public ModelAndView anfrageBearbeitenForm(@PathVariable Long anfrageId) {
-		ModelAndView model   = new ModelAndView("anfrageBearbeiten");
-		Anfrage      anfrage = anfragenService.anfrage(anfrageId);
+		ModelAndView  model         = new ModelAndView("anfrageBearbeiten");
+		AnfrageEntity anfrageEntity = anfragenService.anfrageEntity(anfrageId);
 		
 		model.addObject("statuus", Status.values()); 
-		model.addObject("anfrage", anfrage);
-		log.debug("Anfrage {} wird gerade zur Bearbeitung in die Anzeige gebracht", anfrage.getId());
+		model.addObject("anfrage", AnfrageConverter.toDto(anfrageEntity));
+		
+		log.debug("Anfrage {}/{} wird zur Bearbeitung in die Anzeige gebracht", anfrageEntity.getId(), 
+				                                                                anfrageEntity.getVersion());
 		return model;
 	}
 	
 	@PostMapping("/anfrage/{anfrageId}/bearbeiten")
 	public String anfrageBearbeiten(@ModelAttribute("anfrage") AnfrageDTO anfrageDTO) {
 		log.debug("Anfrage {} fertig bearbeitet", anfrageDTO.getId());
-//		try {
-			anfragenService.anfrageAktualisiert(AnfrageConverter.toAnfrage(anfrageDTO));
-			metricsService.increment("stattauto.anfragen");
-	//	} catch (LeeresFeldFehler e) {
-		//	e.printStackTrace();
-	//	} 
+		
+		anfragenService.anfrageAktualisieren(anfrageDTO);
+
+		metricsService.increment("stattauto.anfragen");
+		
 		return "redirect:/anfragen";
 	}	
 	

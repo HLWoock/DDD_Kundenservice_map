@@ -11,6 +11,7 @@ import de.woock.domain.Anfrage;
 import de.woock.domain.Anfragen;
 import de.woock.domain.Ausgang;
 import de.woock.infra.converter.AnfrageConverter;
+import de.woock.infra.dto.AnfrageDTO;
 import de.woock.infra.entity.AnfrageEntity;
 import de.woock.infra.repository.AnfragenRepository;
 import lombok.RequiredArgsConstructor;
@@ -53,10 +54,17 @@ public class AnfragenService implements Anfragen, Ausgang {
 		anfrage.stellen(anfrage.getAnfrage());
 		
 	}
+	
 	public Anfrage anfrage(Long anfrageId) {
 		AnfrageEntity anfrageEntity = anfragenRepository.findById(anfrageId)
 				                                        .orElse(new AnfrageEntity());
 		return AnfrageConverter.toAnfrage(anfrageEntity);
+	}
+	
+	public AnfrageEntity anfrageEntity(Long anfrageId) {
+		AnfrageEntity anfrageEntity = anfragenRepository.findById(anfrageId)
+				                                        .orElse(new AnfrageEntity());
+		return anfrageEntity;
 	}
 	
 	public void anfrageWeiterleiten(Long anfrageId, List<Abteilungen> abteilungen) {
@@ -69,14 +77,11 @@ public class AnfragenService implements Anfragen, Ausgang {
 		anfragenRepository.delete(anfrageEntity);
 	}
 
-	public void anfrageAktualisiert(Anfrage anfrage) {
-		log.debug("Anfrage {} wird aktualisiert", anfrage.getId());
-	
-		try {
-			anfrage.aktualisiert();
-		} catch (ObjectOptimisticLockingFailureException ex) {
-			ex.printStackTrace();
-			log.error("Anfrage {} wird gerade von jemand anderem bearbeitet", anfrage.getId());
-		}
+	public void anfrageAktualisieren(AnfrageDTO anfrageDTO) {
+		log.debug("Anfrage {} wird aktualisiert", anfrageDTO.getId());
+		
+		AnfrageEntity anfrageEntity = anfrageEntity(anfrageDTO.getId());
+		anfrageEntity.update(anfrageDTO);
+		anfragenRepository.save(anfrageEntity);
 	}
 }

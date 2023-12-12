@@ -26,6 +26,11 @@ public class AnfrageConverter {
 		ModelMapper mapper = new ModelMapper();
 		return mapper.map(anfrage, Umfrage.class);
 	}
+	
+	public static Umfrage toDto(Anfrage anfrage) {
+		ModelMapper mapper = new ModelMapper();
+		return mapper.map(anfrage, Umfrage.class);
+	}
 
 	public static AnfrageDTO toDto(AnfrageEntity anfrageEntity) {
 		return mapper.map(anfrageEntity, AnfrageDTO.class);

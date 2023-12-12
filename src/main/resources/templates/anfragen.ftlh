@@ -103,7 +103,7 @@
 			        <th>Anfragen Nr.</th>
 			        <th>Frage</th>
 			        <th>Antwort</th>
-			        <th>von</th>
+			        <th>vom</th>
 			        <th>Status</th>
 			        <th>Aktion</th>
 			    </tr>

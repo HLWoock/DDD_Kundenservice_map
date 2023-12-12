@@ -2,6 +2,7 @@ package de.woock.infra.dto;
 
 import java.io.Serializable;
 
+import de.woock.domain.Anfrage;
 import de.woock.domain.Prio;
 import de.woock.domain.Status;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,14 @@ public class AnfrageDTO implements Serializable{
 	
 	public Prio[] getPrios() {
 		return Prio.values();
+	}
+	
+	public Anfrage toAnfrage() {
+		Anfrage anfrage2 = new Anfrage(); 
+		anfrage2.setId     (getId());
+		anfrage2.setAntwort(getAntwort());
+		anfrage2.setStatus (getStatus());
+		anfrage2.setVon    (getVon());
+		return anfrage2;
 	}
 }
