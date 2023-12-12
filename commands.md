@@ -23,11 +23,10 @@ docker-compose up -d
 
 Kubernetes
 ==========
-kubectl get nodes
-
-kubectl create deployment [name]
+kubectl create deployment [name]                            kubectl create deployment nginx-depl --image=nginx
 kubectl edit deployment [name]
 kubectl delete deployment [name]
 kubectl get nodes | pod | services | replicaset | deployment
 kubectl logs [pod name]
 kubectl exec -it [pod name] -- bin/bash
+kubectl describe pod [pod name]
