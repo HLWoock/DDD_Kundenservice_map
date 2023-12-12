@@ -9,12 +9,17 @@ docker images "hermannw/*"
 
 docker build -t hermannw/kundenservice:0.1.0 .   //oder mit gradle
 docker push hermannw/kundenservice:0.1.0  
-docker-compose up -d
 
 docker exec -it activemq /bin/bash oder sh
 docker logs avtivemq -f                          // ich kann Kommentare --- ins log schreiben
 
 docker network ls
+
+
+Docker-compose
+==============
+docker-compose up -d
+
 
 Kubernetes
 ==========
