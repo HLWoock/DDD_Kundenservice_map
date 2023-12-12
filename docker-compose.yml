@@ -7,7 +7,7 @@ services:
       - 61616:61616   # OpenWire
       - 8161:8161     # Web Console
     volumes:
-      - ./data:/var/lib/activemq/data
+      - activemq-data:/var/lib/activemq/data
     networks:
       - stattauto
   kundenservice:
@@ -17,7 +17,11 @@ services:
       - 8081:8081
     networks:
       - stattauto
- 
+
+volumes:
+  activemq-data:
+    driver: local
+
 networks:
   stattauto:
     driver: bridge
