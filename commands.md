@@ -34,3 +34,4 @@ kubectl exec -it [pod name] -- bin/bash
 kubectl describe pod [pod name]
 
 kubectl apply -f [file name]                                config-file.yaml
+kubectl delete -f [file name]                                config-file.yaml
