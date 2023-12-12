@@ -1,18 +1,16 @@
 package de.woock.infra.service;
 
-import static de.woock.domain.Status.*;
+import static de.woock.domain.Status.IN_ARBEIT;
 
 import java.util.List;
 
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import de.woock.domain.Abteilungen;
 import de.woock.domain.Anfrage;
 import de.woock.domain.Anfragen;
 import de.woock.domain.Ausgang;
-import de.woock.domain.Status;
 import de.woock.infra.converter.AnfrageConverter;
 import de.woock.infra.dto.AnfrageDTO;
 import de.woock.infra.entity.AnfrageEntity;
