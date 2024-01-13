@@ -48,4 +48,11 @@ Get-NetTCPConnection -State Listen
 Get-Process -Id (Get-NetTCPConnection -State Listen).OwningProcess
 
 
+Git 
+===
+Projektverzeichnis in C:\Users\Administrator\git erstellen
+git init aufrufen
+Im Browser auf github einloggen
+Projekt anlegen
+
 
