@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class AnfrageDTO implements Serializable{
 	
-	
-	
 	public AnfrageDTO(String anfrage) {
 		super();
 		this.anfrage = anfrage;

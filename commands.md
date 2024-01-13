@@ -27,11 +27,25 @@ kubectl create deployment [name]                            kubectl create deplo
 kubectl edit deployment [name]
 kubectl delete deployment [name]
 
-kubectl get nodes | pod | services | replicaset | deployment | all
+kubectl get nodes | pod | services | replicaset | deployment | all -o wide -o yaml > [file name] --watch -n [ns name]
+kubectl get pods -l environment=production,tier=frontend
 
 kubectl logs [pod name]
 kubectl exec -it [pod name] -- bin/bash
-kubectl describe pod [pod name]
+kubectl describe pod | service [pod name]
 
-kubectl apply -f [file name]                                config-file.yaml
-kubectl delete -f [file name]                                config-file.yaml
+kubectl apply -f [file name] --namespace=[ns name]          config-file.yaml
+kubectl delete -f [file name]                               config-file.yaml
+
+kubectl create namespace [ns name]
+kubectl api-resources --namespaced=true|false
+
+DOS
+===
+netstat -ano | findstr LISTENING
+tasklist | findstr [PID]
+Get-NetTCPConnection -State Listen
+Get-Process -Id (Get-NetTCPConnection -State Listen).OwningProcess
+
+
+
