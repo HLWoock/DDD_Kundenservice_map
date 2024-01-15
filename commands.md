@@ -50,9 +50,12 @@ Get-Process -Id (Get-NetTCPConnection -State Listen).OwningProcess
 
 Git 
 ===
-Projektverzeichnis in C:\Users\Administrator\git erstellen
-git init aufrufen
-Im Browser auf github einloggen
-Projekt anlegen
+Projektverzeichnis in C:\Users\Administrator\git erstellen  
+im Browser auf github einloggen  
+Projekt anlegen  
+mit Github Desktop File->Clone repository->url Projekt clonen  
+Sourcecode in Verzeichnis kopieren   
+mit Github Desktop committen und pushen   
+in IDE importieren  
 
 
