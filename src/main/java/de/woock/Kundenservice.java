@@ -28,19 +28,11 @@ public class Kundenservice {
 	}
 	
 	@Bean
-	public ApplicationRunner init(AnfragenService anfragenService, JmsTemplate ausgang) {
+	public ApplicationRunner init(AnfragenService anfragenService) {
 		return args -> {
 			
 			Kundenservice.anfragenOrdner = AnfragenOrdner.mit(anfragenService);
 			Kundenservice.anfragenBoard  = AnfragenBoard.mit(anfragenService);
-			
-			new Anfrage().stellen("Wann kommen endlich die versprochenen Jetski?")
-                         .weiterleitenAn(Fuhrpark)
-                         .beantworten("In 2 Wochen");
-			
-			new Anfrage().stellen("Was kostet die Mitgliedschaft fuer ein Jahr?")
-			             .weiterleitenAn(Verein)
-			             .beantworten("50 Euro");
 		};
 	}
 }

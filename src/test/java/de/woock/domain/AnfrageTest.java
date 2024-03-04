@@ -2,13 +2,11 @@ package de.woock.domain;
 
 import static de.woock.domain.Abteilungen.*;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class AnfrageTest {
 
-	@Test
-	void contextLoads() {
-	}
-	
 	@Test
 	void neueAnfrage() {
 		new Anfrage().stellen("Wann kommen endlich die versprochenen Jetski?")
